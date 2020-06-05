@@ -1,0 +1,17 @@
+.list-group-item{
+    list-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #E4E4E4;
+    input[type=checkbox]{
+        height: 20px;
+        width: 20px;
+        vertical-align:middle;
+    }
+    div.child-list{
+        margin-top: 10px;
+        .list-group-item{
+            background-color: #fff;
+        }
+    }
+}

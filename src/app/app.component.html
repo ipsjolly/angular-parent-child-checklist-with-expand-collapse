@@ -1,0 +1,70 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    {{ title }}!
+  </h1>
+</div>
+<div class="container">
+  <div class="text-right mt-5">
+    <div class="row">
+      <div class="col-md-4">
+
+        <!-- Master Checkbox -->
+        <ul class="list-group">
+          <li class="list-group-item">
+
+            <span (click)="selectUnselectAll(data)">
+              <span *ngIf="data.isAllSelected;else noneSelected">Unselect All </span>
+              <ng-template #noneSelected>Select All </ng-template>
+            </span>
+
+            <!--Master Expand/ Collapse Arrow  -->
+            <span (click)="expandCollapseAll(data)">
+              <i class="fas fa-angle-up" *ngIf="data.isAllCollapsed;else isCollapsed"></i>
+              <ng-template #isCollapsed><i class="fas fa-angle-down"></i></ng-template>
+            </span>
+
+          </li>
+        </ul>
+
+        <ul class="list-group">
+
+          <!-- Parent Item -->
+          <li class="list-group-item" *ngFor="let item of data.ParentChildchecklist">
+
+            <!-- Parent Checkbox -->
+            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}"
+              (ngModelChange)="parentCheck(item)" />
+            {{item.value}}
+            <!-- Parent Arrow -->
+            <span (click)="expandCollapse(item)">
+              <i class="fas fa-angle-up" *ngIf="item.isClosed;else isCollapsed"></i>
+              <ng-template #isCollapsed>
+                <i class="fas fa-angle-down"></i>
+              </ng-template>
+            </span>
+            <div class="child-list" [hidden]="item.isClosed">
+
+              <ul class="list-group level-two">
+                <!-- Child Item -->
+                <li class="list-group-item level-two" *ngFor="let itemChild of
+                item.childList">
+                  <!-- Child Checkbox -->
+                  <input type="checkbox" [(ngModel)]="itemChild.isSelected" name="list_name_child"
+                    value="{{itemChild.id}}" (ngModelChange)="childCheck(item,item.childList)" />
+                  {{itemChild.value}}
+                </li>
+
+              </ul>
+
+            </div>
+          </li>
+        </ul>
+
+      </div>
+      <div class="col-md-8">
+        {{stringify(data)}}
+      </div>
+    </div>
+  </div>
+</div>
